@@ -69,9 +69,14 @@
     </nav>
 
     <!-- *** <List :BlogCont="블로그글" /> -->
-    <router-view :BlogCont="블로그글"></router-view>
+    <router-view :BlogConts="블로그글"></router-view>
 
-    <router-link to="/list">리스트 페이지</router-link>
+    <div class="mt-5 mb-2">
+      <router-link to="/">홈페이지</router-link>
+    </div>
+    <div class="">
+      <router-link to="/list">리스트 페이지</router-link>
+    </div>
   </div>
 </template>
 
