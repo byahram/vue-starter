@@ -1,20 +1,5 @@
 <template>
   <div>
-    <div class="black-bg" v-if="popup == true">
-      <div class="white-bg">
-        <h4>{{ onerooms[clickedIndex].title }}</h4>
-        <p>상세페이지내용임</p>
-        <button @click="popup = false">닫기</button>
-      </div>
-    </div>
-
-    <!-- if/else -->
-    <!-- <div v-if="1 == 2">안녕하세요</div>
-    <div v-else>안녕하세요2</div>
-
-    <div v-if="1 == 2">안녕하세요</div>
-    <div v-else-if="1 == 3">안녕하세요2</div> -->
-
     <div class="menu">
       <!-- 
         <태그 v-for="작명 in 몇회" :key="작명"> 
@@ -24,7 +9,30 @@
       <a v-for="menu in menus" :key="menu">{{ menu }}</a>
     </div>
 
-    <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
+    <!--
+      축약해둔 컴포넌트 쓰는 법
+      1. vue파일 import해오고
+      2. components: {}에 등록 후 사용
+      -->
+    <Modal :onerooms="onerooms" :clickedIndex="clickedIndex" :popup="popup" />
+
+    <Discount />
+
+    <Card
+      :onerooms="onerooms[index]"
+      v-for="(oneroom, index) in onerooms"
+      :key="oneroom"
+    />
+
+    <!-- 
+      * if/else
+      1. 
+        <div v-if="1 == 2">안녕하세요</div>
+        <div v-else>안녕하세요2</div>
+      2.
+      <div v-if="1 == 2">안녕하세요</div>
+      <div v-else-if="1 == 3">안녕하세요2</div> 
+      -->
 
     <!-- 
       * 데이터 바인딩 : JS 데이터를 HTML에 꽂아넣는 문법
@@ -43,24 +51,16 @@
       <button v-on:click="report[i]++">허위매물신고</button>
       <span> 신고수 : {{ report[i] }}</span>
     </div> -->
-
-    <div v-for="(oneroom, i) in onerooms" :key="i">
-      <img :src="oneroom.image" class="room-img" />
-      <h4
-        @click="
-          popup = true;
-          clickedIndex = i;
-        "
-      >
-        {{ oneroom.title }}
-      </h4>
-      <p>{{ oneroom.price }}원</p>
-    </div>
+    자식이 부모데이터 바꾸고 싶으면 custom event 로 메세지만 주십쇼
   </div>
 </template>
 
 <script>
 import lists from "./data/oneroom.js";
+import Modal from "./Modal.vue";
+import Discount from "./Discount.vue";
+import Card from "./Card.vue";
+
 export default {
   name: "App",
   // 데이터 보관함
@@ -87,7 +87,11 @@ export default {
       this.report += 1;
     },
   },
-  components: {},
+  components: {
+    Modal: Modal,
+    Discount: Discount,
+    Card: Card,
+  },
 };
 </script>
 
@@ -130,5 +134,11 @@ div {
 .room-img {
   width: 100%;
   margin-top: 40px;
+}
+.discount {
+  background: #eee;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
 }
 </style>
