@@ -17,11 +17,17 @@
       <h5>{{ BlogConts[2].title }}</h5>
       <p>{{ BlogConts[2].date }}</p>
     </div>
+
+    <!--
+    <div v-for="(BlogCont, index) in BlogConts" :key="index">
+      <h5>{{ BlogCont[index].title }}</h5>
+      <p>{{ BlogCont[index].date }}</p>
+    </div>
+     -->
   </div>
 </template>
 
 <script>
-
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "list",

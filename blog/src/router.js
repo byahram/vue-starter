@@ -8,30 +8,29 @@ import Comment from "./components/Comment.vue";
 const routes = [
   {
     // (\\d+) : 숫자만 정규식
-    path: "/detail/:id(\\d+)",
+    path: "/detail/:id",
     component: Detail,
     children: [
       {
         path: "author",
-        component: Author.vue,
+        component: Author,
       },
       {
         path: "comment",
-        component: Comment.vue,
-      }
+        component: Comment,
+      },
     ],
-
-  },
-  {
-    path: "/",
-    component: Home,
   },
   {
     path: "/list",
     component: List,
   },
+  {
+    path: "/",
+    component: Home,
+  },
   // {
-  //   path: " /:anything(.*)",
+  //   path: "/:anything(.*)",
   //   component: Home,
   // },
 ];
