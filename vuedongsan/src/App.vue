@@ -1,5 +1,21 @@
 <template>
   <div>
+    <!--
+      축약해둔 컴포넌트 쓰는 법
+      1. vue파일 import해오고
+      2. components: {}에 등록 후 사용
+      -->
+    <!-- <div class="start" :class="{ end: popup }"> -->
+    <transition name="fade">
+      <Modal
+        @closeModal="popup = false"
+        :onerooms="onerooms"
+        :clickedIndex="clickedIndex"
+        :popup="popup"
+      />
+    </transition>
+    <!-- </div> -->
+
     <div class="menu">
       <!-- 
         <태그 v-for="작명 in 몇회" :key="작명"> 
@@ -9,19 +25,20 @@
       <a v-for="menu in menus" :key="menu">{{ menu }}</a>
     </div>
 
-    <!--
-      축약해둔 컴포넌트 쓰는 법
-      1. vue파일 import해오고
-      2. components: {}에 등록 후 사용
-      -->
-    <Modal :onerooms="onerooms" :clickedIndex="clickedIndex" :popup="popup" />
-
     <Discount />
 
+    <!-- 
+      부모가 자식의 메시지를 수실할 때
+      : @작명=""
+     -->
     <Card
-      :onerooms="onerooms[index]"
+      @openModal="
+        popup = true;
+        clickedIndex = $event;
+      "
+      :oneroom="onerooms[index]"
       v-for="(oneroom, index) in onerooms"
-      :key="oneroom"
+      :key="index"
     />
 
     <!-- 
@@ -51,7 +68,6 @@
       <button v-on:click="report[i]++">허위매물신고</button>
       <span> 신고수 : {{ report[i] }}</span>
     </div> -->
-    자식이 부모데이터 바꾸고 싶으면 custom event 로 메세지만 주십쇼
   </div>
 </template>
 
@@ -97,7 +113,7 @@ export default {
 
 <style>
 body {
-  margin: 10px;
+  margin: 0;
 }
 div {
   box-sizing: border-box;
@@ -140,5 +156,41 @@ div {
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
+}
+.start {
+  opacity: 0;
+  transition: all 1s;
+}
+.end {
+  opacity: 1;
+}
+/*
+ *  * 입장 애니메이션
+ *  .name-enter-from       --> 시작시 스타일
+ *  .name-enter-active     --> transition
+ *  .name-enter-to         --> 끝날시 스타일
+
+ *  * 퇴장 애니메이션
+ *  .name-leave-from       --> 시작시 스타일
+ *  .name-leave-active     --> transition
+ *  .name-leave-to         --> 끝날시 스타일
+ */
+.fade-enter-from {
+  opacity: 0;
+}
+.fade-enter-active {
+  transition: all 1s;
+}
+.fade-enter-to {
+  opacity: 1;
+}
+.fade-leave-from {
+  opacity: 1;
+}
+.fade-leave-active {
+  transition: all 1s;
+}
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
