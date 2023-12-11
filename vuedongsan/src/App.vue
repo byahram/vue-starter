@@ -25,7 +25,11 @@
       <a v-for="menu in menus" :key="menu">{{ menu }}</a>
     </div>
 
-    <Discount />
+    <Discount v-if="showDiscount == true" :amount="amount" />
+
+    <button @click="priceSort" style="margin-right: 5px">가격순정렬</button>
+
+    <button @click="sortBack">되돌리기</button>
 
     <!-- 
       부모가 자식의 메시지를 수실할 때
@@ -77,15 +81,31 @@ import Modal from "./Modal.vue";
 import Discount from "./Discount.vue";
 import Card from "./Card.vue";
 
+/**
+ * LIFECYCLE 순서
+ *
+ * beforeCreate()
+ * created()
+ * beforeMount()
+ * mounted()
+ * beforeUpdate()
+ * updated()
+ * beforeUnmount()
+ * unmounted()
+ */
 export default {
   name: "App",
   // 데이터 보관함
   data() {
     // 데이터는 objecct 자료로 저장
     return {
+      // array/object 데이터의 각각 별개의 사본을 만들려면 [...array자료]
+      oneroomsOrigin: [...lists],
       clickedIndex: 0,
       onerooms: lists,
       popup: false,
+      showDiscount: true,
+      amount: 30,
       menus: ["Home", "Shop", "About"],
       products: ["역삼동원룸", "천호동원룸", "마포구원룸"],
       report: [0, 0, 0],
@@ -102,6 +122,27 @@ export default {
     increase() {
       this.report += 1;
     },
+    priceSort() {
+      this.onerooms.sort(function (a, b) {
+        return a.price - b.price;
+      });
+    },
+    sortBack() {
+      this.onerooms = [...this.oneroomsOrigin];
+    },
+  },
+  // mounted() : component가 html에 다 장착되어서 잘 보이느 상태
+  mounted() {
+    // this를 쓸 일이 있으면 arrow 함수를 사용하는 편
+    // setTimeout(() => {
+    //   this.showDiscount = false;
+    // }, 2000);
+    setInterval(() => {
+      this.amount--;
+    }, 1000);
+  },
+  created() {
+    // ajax 요청
   },
   components: {
     Modal: Modal,

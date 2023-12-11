@@ -1,6 +1,6 @@
 <template>
   <div class="discount">
-    <h4>지금 결제하면 20% 할인</h4>
+    <h4>지금 결제하면 {{ amount }}% 할인</h4>
   </div>
 </template>
 
@@ -8,8 +8,8 @@
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Discount",
-  data() {
-    return {};
+  props: {
+    amount: Number,
   },
 };
 </script>

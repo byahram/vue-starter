@@ -8,7 +8,6 @@
       <!-- <input @input="month = $event.target.value" /> -->
       <!-- <textarea v-model="month"></textarea> -->
       <input v-model.number="month" />
-      <input type="range" min="1" max="12" />
       <p>
         {{ month }}개월 선택함: {{ onerooms[clickedIndex].price * month }}원
       </p>
@@ -41,6 +40,12 @@ export default {
         this.month = 1;
       }
     },
+  },
+  beforeUpdate() {
+    if (this.month == 2) {
+      alert("2개월은 너무 적음.. 안팝니다");
+      this.month == 3;
+    }
   },
   props: {
     // 자식은 props로 받은 것 등록
