@@ -5,18 +5,25 @@
         <li>Cancel</li>
       </ul>
       <ul class="header-button-right">
-        <li>Next</li>
+        <li v-if="step == 1" @click="step++">Next</li>
+        <li v-if="step == 2" @click="publish">발행</li>
       </ul>
       <img src="./assets/logo.png" class="logo" />
     </div>
 
-    <Container :게시물="게시물" :step="step" />
+    <Container :게시물="게시물" :step="step" :이미지="이미지" />
 
     <button @click="more">더보기</button>
 
     <div class="footer">
       <ul class="footer-button-plus">
-        <input type="file" id="file" class="inputfile" />
+        <input
+          @change="upload"
+          multiple
+          type="file"
+          id="file"
+          class="inputfile"
+        />
         <label for="file" class="input-plus">+</label>
       </ul>
     </div>
@@ -42,6 +49,7 @@ export default {
     return {
       step: 0,
       게시물: postdata,
+      이미지: "",
     };
   },
   components: {
@@ -63,6 +71,31 @@ export default {
       //   .catch((err) => {
       //     console.log(err);
       //   });
+    },
+    upload(e) {
+      // 이미지 업로드
+      // 1. FileReader() : 파일을 글자로 변환해줌
+      // 2. URL.createObjectURL() : 이미지의 가상 URL을 생성해줌
+      let file = e.target.files;
+      console.log(file);
+      let url = URL.createObjectURL(file[0]); // 이미지의 url 생성
+      console.log(url);
+      this.이미지 = url;
+      this.step = 1;
+    },
+    publish() {
+      var 내게시물 = {
+        name: "Kim Hyun",
+        userImage: "https://picsum.photos/100?random=3",
+        postImage: "https://picsum.photos/600?random=3",
+        likes: 36,
+        date: "May 15",
+        liked: false,
+        content: "오늘 무엇을 했냐면요 아무것도 안했어요 ?",
+        filter: "perpetua",
+      };
+      this.게시물.unshift(내게시물); // 왼쪽의 array에 자료집어넣어줌
+      this.step = 0;
     },
   },
 };
