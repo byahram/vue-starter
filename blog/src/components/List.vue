@@ -10,20 +10,18 @@
       <p>{{ BlogConts[0].date }}</p>
     </div>
     <div>
-      <h5>{{ BlogConts[1].title }}</h5>
+      <h5 @click="$router.push('/detail/1')">{{ BlogConts[1].title }}</h5>
       <p>{{ BlogConts[1].date }}</p>
     </div>
     <div>
-      <h5>{{ BlogConts[2].title }}</h5>
+      <h5 @click="$router.push('/detail/2')">{{ BlogConts[2].title }}</h5>
       <p>{{ BlogConts[2].date }}</p>
     </div>
 
-    <!--
-    <div v-for="(BlogCont, index) in BlogConts" :key="index">
-      <h5>{{ BlogCont[index].title }}</h5>
+    <!-- <div v-for="(BlogCont, index) in BlogConts" :key="index">
+      <h5 @click="$router.push('/detail/0')">{{ BlogCont[index].title }}</h5>
       <p>{{ BlogCont[index].date }}</p>
-    </div>
-     -->
+    </div> -->
   </div>
 </template>
 

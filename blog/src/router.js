@@ -29,10 +29,11 @@ const routes = [
     path: "/",
     component: Home,
   },
-  // {
-  //   path: "/:anything(.*)",
-  //   component: Home,
-  // },
+  {
+    // 404 페이지 만들 수 있음
+    path: "/:anything(.*)",
+    component: Home,
+  },
 ];
 
 const router = createRouter({

@@ -3,7 +3,7 @@
     <!-- nav -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">Vuelog</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -68,20 +68,20 @@
       </div>
     </nav>
 
-    <!-- *** <List :BlogCont="블로그글" /> -->
-    <router-view :BlogConts="블로그글"></router-view>
-
     <div class="mt-5 mb-2">
       <router-link to="/">홈페이지</router-link>
     </div>
     <div class="">
       <router-link to="/list">리스트 페이지</router-link>
     </div>
+
+    <!-- <List :BlogCont="블로그글" /> -->
+    <router-view :BlogConts="블로그글" class="mt-4"></router-view>
   </div>
 </template>
 
 <script>
-// *** import List from "./components/List.vue";
+// import List from "./components/List.vue";
 import BlogContext from "./assets/blog.js";
 
 export default {
@@ -92,7 +92,7 @@ export default {
     };
   },
   components: {
-    // *** List: List,
+    // List: List,
   },
 };
 </script>
