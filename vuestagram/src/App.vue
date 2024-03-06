@@ -11,9 +11,11 @@
       <img src="./assets/logo.png" class="logo" />
     </div>
 
+    <h4>안녕 {{ $store.state.name }}</h4>
+
     <Container :게시물="게시물" :step="step" :이미지="이미지" />
 
-    <button @click="more">더보기</button>
+    <button v-if="step == 0" @click="more">더보기</button>
 
     <div class="footer">
       <ul class="footer-button-plus">
@@ -46,11 +48,23 @@ import axios from "axios";
 export default {
   name: "App",
   data() {
+    // ** 데이터 주고받기
+    // 1. 하위컴포넌트 전송은 props
+    // 2. 상위컴포넌트 전송은 custom event
+    // 3. mitt
+
     return {
       step: 0,
       게시물: postdata,
       이미지: "",
+      작성한글: "",
+      선택한필터: "",
     };
+  },
+  mounted() {
+    this.emitter.on("박스클릭함", (a) => {
+      this.선택한필터 = a;
+    });
   },
   components: {
     Container,
@@ -87,12 +101,12 @@ export default {
       var 내게시물 = {
         name: "Kim Hyun",
         userImage: "https://picsum.photos/100?random=3",
-        postImage: "https://picsum.photos/600?random=3",
+        postImage: this.이미지,
         likes: 36,
         date: "May 15",
         liked: false,
-        content: "오늘 무엇을 했냐면요 아무것도 안했어요 ?",
-        filter: "perpetua",
+        content: this.작성한글,
+        filter: this.선택한필터,
       };
       this.게시물.unshift(내게시물); // 왼쪽의 array에 자료집어넣어줌
       this.step = 0;

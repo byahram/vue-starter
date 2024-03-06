@@ -9,6 +9,7 @@
       <span class="profile-name">{{ 게시물.name }}</span>
     </div>
     <div
+      :class="게시물.filter"
       class="post-body"
       :style="{ backgroundImage: `url(${게시물.postImage})` }"
     ></div>
