@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/valid-template-root -->
 <template>
-  <div>
+  <div style="margin-top: 20px">
     <!-- 저번시간에 POST 만든거 -->
     <div v-if="step == 0">
       <Post :게시물="게시물[i]" v-for="(a, i) in 게시물" :key="i" />
@@ -48,12 +48,17 @@
         </textarea>
       </div>
     </div>
+
+    <div v-if="step == 3">
+      <MyPage :one="1" />
+    </div>
   </div>
 </template>
 
 <script>
 import Post from "./Post.vue";
 import FilterBox from "./FilterBox.vue";
+import MyPage from "./MyPage.vue";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -99,6 +104,7 @@ export default {
   components: {
     Post,
     FilterBox,
+    MyPage,
   },
   props: {
     게시물: Array,
