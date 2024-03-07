@@ -80,7 +80,7 @@ export default {
     // 2. 상위컴포넌트 전송은 custom event
     // 3. mitt
     return {
-      step: 3,
+      step: 0,
       게시물: postdata,
       이미지: "",
       작성한글: "",
